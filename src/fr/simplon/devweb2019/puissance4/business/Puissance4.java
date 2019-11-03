@@ -1,18 +1,21 @@
 package fr.simplon.devweb2019.puissance4.business;
 
+import fr.simplon.devweb2019.puissance4.business.enums.Types;
 import fr.simplon.devweb2019.puissance4.ihm.Terminal;
 import fr.simplon.devweb2019.puissance4.business.enums.Tokens;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Puissance4 {
 
-    private final String displayNewTurn = "Joueur %s à vous de jouer !";
+    private final String displayNewTurn = "Joueur %s (%s), à vous de jouer !";
     private final String displaySelectColumn = "Quelle colonne pour ce nouveau coup : ";
     private final String displayColumnError = "Impossible, cette colonne est pleine!";
-    private final String displayVictory = "%s a gagné la partie !";
-    private final String askNewGame = "Voulez-vous faire une autre partie (O/N) ? : ";
+    private final String displayVictory = "%s (%s) a gagné la partie !";
+    private final String askNewGame = "Voulez-vous faire une autre partie (O/N) ? ";
     private final String drawGame = "Match nul !";
 
     private int gridRows = 6;
@@ -136,8 +139,23 @@ public class Puissance4 {
      * @param player
      */
     private void newTurn(Player player){
-        terminal.display(String.format(displayNewTurn, player.getColor()));
+        terminal.display(String.format(displayNewTurn, player.getColor(), player.getName()));
 
+        if(player.getType().compareToIgnoreCase(Types.HUMAN.toString()) == 0){
+            newTurnHuman(player);
+        } else {
+            newTurnBot(player);
+        }
+
+        // Display the grid
+        terminal.displayGrid(grid);
+    }
+
+    /**
+     * Play a turn (human)
+     * @param player
+     */
+    private void newTurnHuman(Player player){
         boolean done = false;
 
         do {
@@ -149,7 +167,18 @@ public class Puissance4 {
             }
         } while(done == false);
 
-        terminal.displayGrid(grid);
+    }
+
+    /**
+     * Play a turn (bot)
+     * @param player
+     */
+    private void newTurnBot(Player player){
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 6 + 1);
+        // Play
+        play(randomNum, player.getColor());
     }
 
     /**
@@ -236,11 +265,18 @@ public class Puissance4 {
         }
 
         if(victory){
-            System.out.println(String.format(displayVictory, player.getName()));
+            System.out.println(String.format(displayVictory, player.getName(), player.getColor()));
         }
         return victory;
     }
 
+    /**
+     * Check the content of a token
+     * @param row
+     * @param col
+     * @param color
+     * @return
+     */
     private int checkTocken(int row, int col, String color){
         int points = 0;
 

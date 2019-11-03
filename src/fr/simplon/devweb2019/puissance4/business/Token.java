@@ -4,10 +4,6 @@ import fr.simplon.devweb2019.puissance4.business.enums.Tokens;
 
 public class Token {
 
-//    public static final String EMPTY = "EMPTY";
-//    public static final String RED = "RED";
-//    public static final String YELLOW = "YELLOW";
-
     private String status = "";
     private String renderedStatus;
     private int row;

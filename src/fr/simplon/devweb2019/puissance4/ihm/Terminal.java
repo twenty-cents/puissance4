@@ -12,13 +12,18 @@ public class Terminal {
 
     private final String playerInput = "Nom du joueur : ";
     private final String playerType = "HUMAN or BOT : ";
-    private final String playerColor = "RED or YELLOW : ";
+    private final String errorSelectcolumn = "Le numéro de colonne doit être compris entre 1 et %d";
+    private final String errorInput = "Saisie incorrecte, veuillez ôter vos mouffles...";
+    private final String errorSelectValue = "Saisie incorrecte, options possibles : %s";
 
     private static Scanner sc;
     static {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Constructor
+     */
     public Terminal() {
     }
 
@@ -35,6 +40,7 @@ public class Terminal {
 
         Player player = new Player();
         player.setName(input(playerInput));
+        player.setType(selectValue(types, playerType));
 
         // Get a new player
         return player;
@@ -56,7 +62,7 @@ public class Terminal {
                 if(column < 1 || column > colMax)
                     throw new Exception("");
             } catch (Exception e) {
-                    System.out.println("Le numéro de colonne doit être compris entre 1 et " + colMax);
+                    System.out.println(String.format(errorSelectcolumn, colMax));
                     column = -1;
             }
         } while(column == -1);
@@ -77,6 +83,11 @@ public class Terminal {
         }
     }
 
+    /**
+     * Input a text in the console
+     * @param msg : the message to display
+     * @return
+     */
     private String input(String msg){
         String in = "";
 
@@ -87,7 +98,7 @@ public class Terminal {
                 if(in.compareTo("") == 0)
                     throw new Exception("");
             } catch (Exception e) {
-                System.out.println("Saisie incorrecte, veuillez ôter vos mouffles...");
+                System.out.println(errorInput);
                 in = "";
             }
         }while (in == "");
@@ -115,11 +126,11 @@ public class Terminal {
         do{
             try {
                 System.out.print("\n>>> " + msg + " : ");
-                value = sc.nextLine();
+                value = sc.nextLine().toUpperCase();
                 if(values.contains(value) == false)
                     throw new Exception("");
             } catch (Exception e) {
-                System.out.println("Saisie incorrecte, veuillez ôter vos mouffles...");
+                System.out.println(String.format(errorSelectValue, values));
                 value = "";
             }
         }while (value == "");

@@ -1,15 +1,11 @@
 package fr.simplon.devweb2019.puissance4.business;
 
+import fr.simplon.devweb2019.puissance4.business.enums.Types;
+
 public class Player {
 
-    public static final String HUMAN = "HUMAN";
-    public static final String BOT = "BOT";
-
-    public static final String RED = "RED";
-    public static final String YELLOW = "YELLOW";
-
     private String name;
-    private String type = Player.HUMAN;
+    private String type = Types.HUMAN.toString();
     private String color;
 
     public Player() {
@@ -37,8 +33,12 @@ public class Player {
         this.color = color;
     }
 
-    public static String getHUMAN() {
-        return HUMAN;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
