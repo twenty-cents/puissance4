@@ -25,20 +25,4 @@ Le jeu se termine si quatre jetons consécutifs d'une même couleur sont aligné
 
 # Exemple d'utilisation
 
->  [        ][        ][        ][        ][        ][        ][        ]
-
->  [        ][  RED   ][        ][        ][        ][        ][        ]
-
->  [ YELLOW ][ YELLOW ][        ][ YELLOW ][        ][ YELLOW ][        ]
-
->  [  RED   ][  RED   ][  RED   ][ YELLOW ][        ][ YELLOW ][        ]
-
->  [  RED   ][  RED   ][ YELLOW ][  RED   ][  RED   ][ YELLOW ][        ]
-
->  [  RED   ][ YELLOW ][  RED   ][ YELLOW ][  RED   ][ YELLOW ][ YELLOW ]
-
->  SKYNET (YELLOW) a gagné la partie !
-
->  
-
->  Voulez-vous faire une autre partie (O/N) ? : 
+![Puissance 4](/images/puissance4.png)
